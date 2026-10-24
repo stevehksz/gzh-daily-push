@@ -84,7 +84,7 @@ def build_desp(repos):
 def push(title, desp):
     key = None
     import os
-    key = os.environ.get("SCT_SENDKEY", "")
+    key = os.environ.get("SCT_SENDKEY", "").strip()
     if not key:
         print("ERROR: SCT_SENDKEY 环境变量为空")
         sys.exit(2)
