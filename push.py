@@ -86,7 +86,10 @@ def push(title, desp):
     import os
     raw = os.environ.get("SCT_SENDKEY", "")
     m = re.search(r"(SCT[0-9A-Za-z]+)", raw)
-    key = m.group(1) if m else "".join(raw.split())
+    if not m:
+        print("ERROR: SCT_SENDKEY 里提取不到 SCT 开头的合法 SendKey，请检查 Secret 值")
+        sys.exit(2)
+    key = m.group(1)
     if not key:
         print("ERROR: SCT_SENDKEY 环境变量为空")
         sys.exit(2)
