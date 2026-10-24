@@ -1,0 +1,27 @@
+name: GitHub Trending Daily Push
+
+on:
+  schedule:
+    # GitHub Actions 的 cron 用 UTC；UTC 00:00 = 北京时间 08:00
+    # 注意：GitHub 定时任务可能有 0-30 分钟的延迟
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch trending and push via ServerChan
+        env:
+          SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
+        run: python push.py
