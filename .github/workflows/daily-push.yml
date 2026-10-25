@@ -2,9 +2,9 @@ name: GitHub Trending Daily Push
 
 on:
   schedule:
-    # GitHub Actions 的 cron 用 UTC；UTC 00:00 = 北京时间 08:00
-    # 注意：GitHub 定时任务可能有 0-30 分钟的延迟
-    - cron: '0 0 * * *'
+    # GitHub Actions 的 cron 用 UTC；UTC 22:00 = 北京时间 06:00
+    # 提前 2 小时对冲 GitHub schedule 队列延迟（实测可延迟近 2 小时）
+    - cron: '0 22 * * *'
   workflow_dispatch:
 
 permissions:
